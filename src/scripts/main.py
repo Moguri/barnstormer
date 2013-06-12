@@ -1,2 +1,4 @@
+from bge import logic
+
 def init(cont):
-	print("Hello world")
+	logic.startGame(logic.expandPath("levels/free_roam.blend"))
