@@ -5,6 +5,7 @@ import math
 
 class PlayerController:
 	DYAW = math.radians(1.0)
+	DPITCH = math.radian(1.0)
 
 	def __init__(self, ob):
 		self.obj = ob
@@ -14,6 +15,7 @@ class PlayerController:
 		# Default values
 		throttle = 1
 		yaw = 0
+		pitch = 0
 
 		# Get input
 		for keycode, status in logic.keyboard.active_events.items():
@@ -23,6 +25,10 @@ class PlayerController:
 				yaw -= self.DYAW
 			elif keycode == events.RIGHTARROWKEY:
 				yaw += self.DYAW
+			elif keycode == events.UPARROWKEY:
+				pitch += self.DPITCH
+			elif keycode == events.DOWNARROWKEY:
+				pitch -= self.DPITCH
 
 		transform = self.obj.localTransform
 
@@ -31,6 +37,8 @@ class PlayerController:
 
 		# Adjust yaw (local z)
 		transform = Matrix.Rotation(yaw, 4, 'Z') * transform
+
+		# Adjust pitch (
 
 		self.obj.localTransform = transform
 
