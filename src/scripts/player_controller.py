@@ -41,6 +41,12 @@ class PlayerController:
 
 		self.obj.localTransform = self.obj.localTransform * transform
 
+		# Roll correction
+		if yaw == 0:
+			error = 0 - self.obj.localOrientation.to_euler()[1]
+			#print(error)
+			self.obj.applyRotation((0, error*0.03, 0), True)
+
 def main(cont):
 	ob = cont.owner
 
