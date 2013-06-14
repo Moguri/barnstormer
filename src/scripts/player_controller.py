@@ -7,6 +7,7 @@ import time
 class PlayerController:
 	DYAW = math.radians(1.0)
 	DPITCH = math.radians(1.0)
+	MAX_BANK = math.radians(40.0)
 	IDLE_THROTTLE = 0.25
 	MAX_THROTTLE = 0.35
 	TICK_RATE = 1/60  # Expected tic rate
@@ -50,10 +51,14 @@ class PlayerController:
 		self.obj.localTransform = self.obj.localTransform * transform
 
 		# Roll correction
+		roll = self.obj.localOrientation.to_euler()[1]
 		if yaw == 0:
-			error = 0 - self.obj.localOrientation.to_euler()[1]
-			#print(error)
-			self.obj.applyRotation((0, error*0.03*dtscale, 0), True)
+			error = 0 - roll
+		elif yaw < 0:
+			error = -self.MAX_BANK - roll
+		else:
+			error = self.MAX_BANK - roll
+		self.obj.applyRotation((0, error*0.03*dtscale, 0), True)
 
 		self.last_update = time.time()
 
