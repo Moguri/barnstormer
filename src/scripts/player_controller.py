@@ -35,11 +35,18 @@ class PlayerController:
 		# Move forward (down the local -y)
 		transform = Matrix.Translation((0, -throttle, 0)) * transform
 
+		# Translate to origin
+		origin_translation = transform.decompose()[0]
+		transform = Matrix.Translation(-origin_translation) * transform
+
 		# Adjust yaw (local z)
 		transform = Matrix.Rotation(yaw, 4, 'Z') * transform
 
 		# Adjust pitch (local x)
 		transform = Matrix.Rotation(pitch, 4, 'X') * transform
+
+		# Undo origin translation
+		transform = Matrix.Translation(origin_translation) * transform
 
 		self.obj.localTransform = transform
 
