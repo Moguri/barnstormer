@@ -14,7 +14,8 @@ class PlayerController:
 
 	def __init__(self, ob):
 		self.obj = ob
-		self.last_update = time.time()
+		self.last_update = self.start_time = time.time()
+		self.end_time = None
 		print("Attaching player controller to", ob)
 
 	def run(self):
@@ -59,6 +60,11 @@ class PlayerController:
 		else:
 			error = self.MAX_BANK - roll
 		self.obj.applyRotation((0, error*0.03*dtscale, 0), True)
+
+		# Check how many collectables we have left
+		if not self.end_time and logic.globalDict['collectables'] <= 0:
+			self.end_time = time.time() - self.start_time
+			print("All collectables gathered in %f seconds!" % self.end_time)
 
 		self.last_update = time.time()
 
