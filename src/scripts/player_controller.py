@@ -1,5 +1,6 @@
 from bge import logic, events
 from mathutils import Vector, Matrix
+import aud
 
 import math
 import time
@@ -17,6 +18,12 @@ class PlayerController:
 		self.last_update = self.start_time = time.time()
 		self.end_time = None
 		print("Attaching player controller to", ob)
+
+		self.engine_sound = aud.device().play(aud.Factory(logic.expandPath("//../sounds/engine.ogg")).loop(-1))
+
+	def __del__(self):
+		print("Destroying sound handle")
+		self.engine_sound.stop()
 
 	def run(self):
 		# Default values
@@ -60,6 +67,12 @@ class PlayerController:
 		else:
 			error = self.MAX_BANK - roll
 		self.obj.applyRotation((0, error*0.03*dtscale, 0), True)
+
+		# Alter the pitch of the engine noise based on throttle
+		if throttle == self.MAX_THROTTLE:
+			self.engine_sound.pitch = 1.5
+		else:
+			self.engine_sound.pitch = 1
 
 		# Check how many collectables we have left
 		if not self.end_time and logic.globalDict['collectables'] <= 0:
