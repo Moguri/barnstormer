@@ -20,10 +20,12 @@ class PlayerController:
 		print("Attaching player controller to", ob)
 
 		self.engine_sound = aud.device().play(aud.Factory(logic.expandPath("//../sounds/engine.ogg")).loop(-1))
+		self.bg_music = aud.device().play(aud.Factory(logic.expandPath("//../sounds/Circus Waltz FX.ogg")).loop(-1))
 
 	def __del__(self):
-		print("Destroying sound handle")
+		print("Destroying sound handles")
 		self.engine_sound.stop()
+		self.bg_music.stop()
 
 	def run(self):
 		# Default values
