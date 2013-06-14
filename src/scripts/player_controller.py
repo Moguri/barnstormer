@@ -6,6 +6,8 @@ import math
 class PlayerController:
 	DYAW = math.radians(1.0)
 	DPITCH = math.radians(1.0)
+	IDLE_THROTTLE = 0.25
+	MAX_THROTTLE = 0.35
 
 	def __init__(self, ob):
 		self.obj = ob
@@ -13,14 +15,14 @@ class PlayerController:
 
 	def run(self):
 		# Default values
-		throttle = 1
+		throttle = self.IDLE_THROTTLE
 		yaw = 0
 		pitch = 0
 
 		# Get input
 		for keycode, status in logic.keyboard.active_events.items():
 			if keycode == events.SPACEKEY:
-				throttle = 2
+				throttle = self.MAX_THROTTLE
 			elif keycode == events.LEFTARROWKEY:
 				yaw += self.DYAW
 			elif keycode == events.RIGHTARROWKEY:
