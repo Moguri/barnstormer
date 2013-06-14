@@ -5,7 +5,7 @@ import math
 
 class PlayerController:
 	DYAW = math.radians(1.0)
-	DPITCH = math.radian(1.0)
+	DPITCH = math.radians(1.0)
 
 	def __init__(self, ob):
 		self.obj = ob
@@ -38,7 +38,8 @@ class PlayerController:
 		# Adjust yaw (local z)
 		transform = Matrix.Rotation(yaw, 4, 'Z') * transform
 
-		# Adjust pitch (
+		# Adjust pitch (local x)
+		transform = Matrix.Rotation(pitch, 4, 'X') * transform
 
 		self.obj.localTransform = transform
 
