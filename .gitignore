@@ -4,3 +4,7 @@ __pycache__
 # Blender
 *.blend1
 *.blend2
+
+# Other
+config.ini
+
