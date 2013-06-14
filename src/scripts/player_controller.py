@@ -30,25 +30,16 @@ class PlayerController:
 			elif keycode == events.DOWNARROWKEY:
 				pitch -= self.DPITCH
 
-		transform = self.obj.localTransform
-
-		# Move forward (down the local -y)
-		transform = Matrix.Translation((0, -throttle, 0)) * transform
-
-		# Translate to origin
-		origin_translation = transform.decompose()[0]
-		transform = Matrix.Translation(-origin_translation) * transform
+		# Adjust pitch (local x)
+		transform = Matrix.Rotation(pitch, 4, 'X')
 
 		# Adjust yaw (local z)
 		transform = Matrix.Rotation(yaw, 4, 'Z') * transform
 
-		# Adjust pitch (local x)
-		transform = Matrix.Rotation(pitch, 4, 'X') * transform
+		# Move forward (down the local -y)
+		transform = Matrix.Translation((0, -throttle, 0)) * transform
 
-		# Undo origin translation
-		transform = Matrix.Translation(origin_translation) * transform
-
-		self.obj.localTransform = transform
+		self.obj.localTransform = self.obj.localTransform * transform
 
 def main(cont):
 	ob = cont.owner
