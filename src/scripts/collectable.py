@@ -1,4 +1,5 @@
 from bge import logic
+import aud
 
 
 class Collectable:
@@ -17,6 +18,7 @@ class Collectable:
 		if self.sensor.positive:
 			print("HIT!")
 			logic.globalDict['collectables'] -= 1
+			aud.device().play(aud.Factory(logic.expandPath("//../sounds/completetask_0.mp3")))
 			self.obj.endObject()
 
 
