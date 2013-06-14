@@ -22,9 +22,9 @@ class PlayerController:
 			if keycode == events.SPACEKEY:
 				throttle = 2
 			elif keycode == events.LEFTARROWKEY:
-				yaw -= self.DYAW
-			elif keycode == events.RIGHTARROWKEY:
 				yaw += self.DYAW
+			elif keycode == events.RIGHTARROWKEY:
+				yaw -= self.DYAW
 			elif keycode == events.UPARROWKEY:
 				pitch += self.DPITCH
 			elif keycode == events.DOWNARROWKEY:
