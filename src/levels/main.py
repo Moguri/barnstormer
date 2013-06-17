@@ -14,10 +14,19 @@ def update_path():
 def init():
 	update_path()
 
+	# Do the import here so we know our path is good to go
+	import bgui.bge
+	logic.ui_system = bgui.bge.System()
+
 
 def level_select(cont):
-	init()
-	logic.startGame(logic.expandPath("//free_roam.blend"))
+	try:
+		logic.ui_system.run()
+	except AttributeError:
+		init()
+
+		from scripts.layouts import LevelSelectLayout
+		logic.ui_system.load_layout(LevelSelectLayout, None)
 
 
 def free_roam(cont):
