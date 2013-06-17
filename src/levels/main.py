@@ -3,6 +3,7 @@ import os
 
 
 from bge import logic
+from mathutils import Vector
 
 
 def update_path():
@@ -31,3 +32,14 @@ def level_select(cont):
 
 def free_roam(cont):
 	init()
+	
+	
+def five_stunt(cont):
+	init()
+	
+	scene = logic.getCurrentScene()
+	with open("fivestunt.data", "r") as fin:
+		for item in fin.readlines():
+			floats = [float(i) for i in item.split(',')]
+			newob = scene.addObject("Collectable", "World")
+			newob.worldPosition = Vector(floats)

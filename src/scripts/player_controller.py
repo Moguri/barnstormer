@@ -5,6 +5,10 @@ import aud
 import math
 import time
 
+
+SPEED = 60
+run_time = 0
+
 class PlayerController:
 	DYAW = math.radians(1.0)
 	DPITCH = math.radians(1.0)
@@ -84,6 +88,7 @@ class PlayerController:
 		self.last_update = time.time()
 
 def main(cont):
+	global run_time
 	ob = cont.owner
 
 	try:
@@ -91,3 +96,7 @@ def main(cont):
 	except KeyError:
 		ob['pc'] = PlayerController(ob)
 		
+	# if run_time % SPEED == 0:
+		# with open("log.txt", "a") as log:
+			# log.write("%f, %f, %f\n" % (ob.worldPosition[0], ob.worldPosition[1], ob.worldPosition[2]))
+	# run_time += 1

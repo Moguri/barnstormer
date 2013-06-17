@@ -36,7 +36,7 @@ class LevelSelectLayout(bgui.bge.Layout):
 
 		self.levels = OrderedDict()
 		self.levels["Free Roam"] = "free_roam.blend"
-		self.levels["Collection Training"] = "free_roam.blend"
+		self.levels["Collection Training"] = "five_stunt.blend"
 
 		self.listbox = bgui.ListBox(self, items=self.levels.keys(), pos=[0.15, 0.2], size=[0.6, 0.55])
 		self.listbox.renderer = self.LevelListRenderer(self.listbox)
